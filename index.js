@@ -6,6 +6,7 @@
 
  const store=createStore(reducer);
 
+
 //  reducer always have twom parameter (state and action) also reducer always return us the state
 // we can also assign the initial value to the state  by state={amount:1}
  function reducer(state={amount:0},action){
@@ -31,15 +32,28 @@
     console.log(store.getState());
    })
 
+   //   we  can simplfy the work of sending the actions using the Action Creatators
+   function increment(){
+    return {type:"increment"}
+   };
+   function decrement(){
+    return {type:"decrement"}
+   };
+   function incrementByAmount(value){
+    return {type:"incrementByAmount" ,payload:value}
+   };
+
 
 //  now in order to change the state we need a action 
 // creating a action
 // {type:"increment"}  //we are not sending any payload along with the action in this case
 //now in order to send the action we need a eventhadler called as the dispatch
-  store.dispatch({type:"incrementByAmount",payload:4}); //now dispatch will send the action into the reducer
-  store.dispatch({type:"incrementByAmount",payload:4}); //now dispatch will send the action into the reducer
-  store.dispatch({type:"incrementByAmount",payload:4}); //now dispatch will send the action into the reducer
 
-//   we  can simplfy the work of sending the actions using the Action Creatators
+setInterval(()=>{
+  store.dispatch(incrementByAmount(2));//now dispatch will send the action into the reducer
+},2000)
+
+
+
 
   
