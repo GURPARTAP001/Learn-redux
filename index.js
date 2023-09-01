@@ -100,7 +100,7 @@ store.subscribe(() => {
 //        dispatch({ type: "init", payload: data.amount })
 //        }
 //FINAL:-
-function account_init(id) {
+export function account_init(id) {
     return (async (dispatch, getState) => {
         // now to handle the api calling correctly we have to create 3 action fulfilled,pending,rejected and handle each of them inside the reducer
         try{
@@ -128,7 +128,7 @@ function account_incrementByAmount(value) {
 };
 
 
-function bonus_increment(){
+export function bonus_increment(){
     return {type:increment_bonus}
 }
 
