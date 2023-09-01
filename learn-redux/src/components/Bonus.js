@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Bonus.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { bonus_increment } from '../actions'
 
 function Bonus() {
-    const [bonus,setBonus]=useState({points:0})
 
-    const increment=()=>{
-        setBonus({points:bonus.points+1})
-    }
+  const points=useSelector(state=>state.bonus.points)
+  const dispatch=useDispatch()
+
+    
   return (
     <div className='bonus'>
         <h2>Bonus Component</h2>
-        <h3>Total Points :{bonus.points}</h3>
+        <h3>Total Points :{points}</h3>
 
-        <button onClick={increment}>Increment +1</button>
+        <button onClick={()=>dispatch(bonus_increment())}>Increment +1</button>
       
     </div>
   )
