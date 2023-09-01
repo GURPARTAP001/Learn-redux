@@ -2,12 +2,15 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import axios from 'axios'
 import thunk from 'redux-thunk'
 
-// Action names.............................
+// Action names for the account reducer.............................
 const increment_account="account/increment"
-const init_account="account/init"
+const init_account_fulfilled="account/init/fulfilled"
+const init_account_pending="account/init/pending"
+const init_account_rejected="account/init/rejected"
 const decrement_account="account/decrement"
 const incByAmount_account="account/incByAmount"
 
+// action names for the bonus reducer
 const increment_bonus="bonus/increment"
 
 
@@ -29,8 +32,18 @@ function accountReducer(state = { amount: 0 }, action) {
 
     switch (action.type) {
 
-        case init_account:
-            return { amount: action.payload };
+        case init_account_fulfilled:
+            return { amount: action.payload,pending:false };
+
+            // In the pending the rest of the state remain so use the spread operator same just the pending get added
+        case init_account_pending:
+            return { ...state,pending:true };
+
+            //In the case of the rejected we will pass the error in place of payload 
+        case init_account_rejected:
+            return { ...state,error:action.error ,pending:false};
+
+
         case increment_account:
             return { amount: state.amount + 1 };
 
@@ -89,9 +102,17 @@ store.subscribe(() => {
 //FINAL:-
 function account_init(id) {
     return (async (dispatch, getState) => {
-        const { data } = await axios.get(`http://localhost:3000/accounts/${id}`);
-        dispatch({ type: init_account, payload: data.amount })
+        // now to handle the api calling correctly we have to create 3 action fulfilled,pending,rejected and handle each of them inside the reducer
+        try{
+            dispatch({type:init_account_pending})
+        const { data } = await axios.get(`http://localhost:3000/account/${id}`);
+        dispatch({ type: init_account_fulfilled, payload: data.amount })
 
+        }catch(error){
+            // In the dispatch we can pass the error also
+            dispatch({type:init_account_rejected,error:error.message})
+        }
+    
     })
 
 }
@@ -119,7 +140,7 @@ function bonus_increment(){
 
 // Now when we are uisng the thunk we only send the function defination only in the dispatch we dont send the function call
 setInterval(() => {
-    store.dispatch(bonus_increment());//now dispatch will send the action into the reducer
+    store.dispatch(account_init(1));//now dispatch will send the action into the reducer
 }, 2000)
 
 
