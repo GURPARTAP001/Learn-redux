@@ -42,6 +42,14 @@ export const accountSlice = createSlice({
     // here we just need to add .fulfilled ,pending etc in front of the getUserAccount to create the various actions for the api call
     builder.addCase(getUserAccount.fulfilled,(state,action)=>{
         state.amount=action.payload
+        state.pending=false;
+    })
+    .addCase(getUserAccount.pending,(state,action)=>{
+      state.pending=true;
+    })
+    .addCase(getUserAccount.rejected,(state,action)=>{
+      state.error=action.error;
+      state.pending=false;
     })
   }
 })

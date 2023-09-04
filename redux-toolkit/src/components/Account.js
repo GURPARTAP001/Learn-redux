@@ -6,12 +6,14 @@ import { increment,decrement,incrementByAmount, getUserAccount } from '../slices
 function Account() {
     const [value,setValue]=useState(null);
     const amount=useSelector(state=>state.account.amount)
+    const account=useSelector(state=>state.account)
     const dispatch=useDispatch();
    
   return (
     <div className='account'>
         <h2>Account Component</h2>
-        <h3>Amount:{amount}</h3>
+        {account.pending?<p>Loading...</p>:account.error?<p>{account.error.message}</p>:<h3>Amount:{amount}</h3>}
+        
       <div className="btns">
         <button onClick={()=>dispatch(increment())}>Increment +1</button>
         <button onClick={()=>dispatch(decrement())}>Decrement -1</button>
