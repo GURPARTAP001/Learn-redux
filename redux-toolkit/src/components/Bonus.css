@@ -1,0 +1,24 @@
+.bonus{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid white;
+}
+
+.bonus h2{
+    color: palevioletred;
+}
+
+.bonus h3{
+    color: yellow;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+.bonus button{
+    background-color: #beb4b4;
+    margin-inline: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
