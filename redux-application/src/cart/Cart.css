@@ -1,0 +1,40 @@
+.main{
+  margin-top: 50px;
+}
+
+.cart{
+  display: flex;
+  /* background-color: black; */
+  color:chocolate;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: aliceblue;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+.cart img{
+  object-fit: contain;
+  width: 200px;
+}
+
+.textBox{
+  width: 145px;
+  overflow:auto;
+}
+
+.cart select{
+  height: 20px;
+  margin-left: -20px;
+  color:chocolate;
+  cursor: pointer;
+  
+}
+.cart button{
+  background-color: transparent;
+  border-radius: 18px;
+  border: 1px solid red;
+  color: red;
+  height: 20px;
+}
